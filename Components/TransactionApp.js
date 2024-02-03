@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import TransactionForm from './TransactionForm';
 import TransactionTable from './TransactionTable';
+import SearchBar from './SearchBar';
 
 const TransactionApp = () => {
   const [transactions, setTransactions] = useState([]);
@@ -58,12 +59,7 @@ const TransactionApp = () => {
         onAddTransaction={handleAddTransaction}
       />
 
-      <input
-        type="text"
-        placeholder="Search transactions"
-        value={searchTerm}
-        onChange={handleSearchTermChange}
-      />
+      <SearchBar searchTerm={searchTerm} onSearchTermChange={handleSearchTermChange} />
 
       <TransactionTable transactions={transactions} searchTerm={searchTerm} />
     </div>
