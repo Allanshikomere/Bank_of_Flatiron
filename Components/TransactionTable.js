@@ -1,20 +1,27 @@
+// TransactionTable.js
 import React from 'react';
 
-const TransactionTable = ({ transactions }) => {
+const TransactionTable = ({ transactions, searchTerm }) => {
+  const filteredTransactions = transactions.filter((transaction) =>
+    transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <table>
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Date</th>
           <th>Description</th>
+          <th>Category</th>
           <th>Amount</th>
         </tr>
       </thead>
       <tbody>
-        {transactions.map(transaction => (
+        {filteredTransactions.map((transaction) => (
           <tr key={transaction.id}>
-            <td>{transaction.id}</td>
+            <td>{transaction.date}</td>
             <td>{transaction.description}</td>
+            <td>{transaction.category}</td>
             <td>{transaction.amount}</td>
           </tr>
         ))}

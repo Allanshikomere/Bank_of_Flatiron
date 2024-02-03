@@ -1,19 +1,20 @@
+// TransactionForm.js
 import React from 'react';
 
-const TransactionForm = ({ newTransaction, onInputChange, onSubmit }) => {
+const TransactionForm = ({ newTransaction, onDescriptionChange, onAmountChange, onAddTransaction }) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form>
       <label>
         Description:
-        <input type="text" name="description" value={newTransaction.description} onChange={onInputChange} />
+        <input type="text" value={newTransaction.description} onChange={onDescriptionChange} />
       </label>
-
       <label>
         Amount:
-        <input type="text" name="amount" value={newTransaction.amount} onChange={onInputChange} />
+        <input type="number" value={newTransaction.amount} onChange={onAmountChange} />
       </label>
-
-      <button type="submit">Add Transaction</button>
+      <button type="button" onClick={onAddTransaction}>
+        Add Transaction
+      </button>
     </form>
   );
 };

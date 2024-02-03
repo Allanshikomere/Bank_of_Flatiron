@@ -1,55 +1,51 @@
-import React, { useState } from 'react';
+// TransactionApp.js
+import React, { useState, useEffect } from 'react';
 import TransactionForm from './TransactionForm';
-import TransactionTable from '../TransactionTable';
-import SearchBar from './SearchBar';
+import TransactionTable from './TransactionTable';
 
 const TransactionApp = () => {
-  const initialTransactions = [
-    { id: 1, description: 'Groceries', amount: 50 },
-    { id: 2, description: 'Gas', amount: 30 },
-    // Add more transactions as needed
-  ];
-
-  const [transactions, setTransactions] = useState(initialTransactions);
-  const [newTransaction, setNewTransaction] = useState({ description: '', amount: '' });
+  const [transactions, setTransactions] = useState([]);
+  const [newTransaction, setNewTransaction] = useState({ date: '', description: '', category: '', amount: 0 });
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewTransaction({ ...newTransaction, [name]: value });
-  };
+  useEffect(() => {
+    fetch('http://localhost:3000/transactions') // Update the URL as per your json-server setup
+      .then((response) => response.json())
+      .then((data) => setTransactions(data))
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Validation: Ensure both description and amount are provided
-    if (newTransaction.description.trim() === '' || newTransaction.amount.trim() === '') {
-      alert('Please enter both description and amount.');
+  const handleAddTransaction = () => {
+    if (newTransaction.description.trim() === '') {
+      alert('Please enter a description for the transaction.');
       return;
     }
 
-    // Create a new transaction object
-    const newTransactionObj = {
-      id: transactions.length + 1,
-      description: newTransaction.description,
-      amount: parseFloat(newTransaction.amount),
-    };
+    fetch('http://localhost:3000/transactions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTransaction),
+    })
+      .then((response) => response.json())
+      .then((data) => setTransactions([...transactions, data]))
+      .catch((error) => console.error('Error adding transaction:', error));
 
-    // Update the state with the new transaction
-    setTransactions([...transactions, newTransactionObj]);
-
-    // Clear the form
-    setNewTransaction({ description: '', amount: '' });
+    setNewTransaction({ date: '', description: '', category: '', amount: 0 });
   };
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+  const handleDescriptionChange = (event) => {
+    setNewTransaction((prevTransaction) => ({ ...prevTransaction, description: event.target.value }));
   };
 
-  // Filter transactions based on the search term
-  const filteredTransactions = transactions.filter(transaction =>
-    transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleAmountChange = (event) => {
+    setNewTransaction((prevTransaction) => ({ ...prevTransaction, amount: event.target.value }));
+  };
+
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   return (
     <div>
@@ -57,13 +53,19 @@ const TransactionApp = () => {
 
       <TransactionForm
         newTransaction={newTransaction}
-        onInputChange={handleInputChange}
-        onSubmit={handleSubmit}
+        onDescriptionChange={handleDescriptionChange}
+        onAmountChange={handleAmountChange}
+        onAddTransaction={handleAddTransaction}
       />
 
-      <SearchBar searchTerm={searchTerm} onSearch={handleSearch} />
+      <input
+        type="text"
+        placeholder="Search transactions"
+        value={searchTerm}
+        onChange={handleSearchTermChange}
+      />
 
-      <TransactionTable transactions={filteredTransactions} />
+      <TransactionTable transactions={transactions} searchTerm={searchTerm} />
     </div>
   );
 };
