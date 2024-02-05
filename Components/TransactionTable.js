@@ -1,33 +1,29 @@
-// TransactionTable.js
-import React from 'react';
+import React from "react";
+import Transaction from "./Transaction";
 
-function TransactionTable({ transactions, searchTerm }) {
-  const filteredTransactions = transactions.filter((transaction) =>
-    transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+function TransactionsList({data}) {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
+    <table className="ui celled striped padded table">
       <tbody>
-        {filteredTransactions.map((transaction) => (
-          <tr key={transaction.id}>
-            <td>{transaction.date}</td>
-            <td>{transaction.description}</td>
-            <td>{transaction.category}</td>
-            <td>{transaction.amount}</td>
-          </tr>
-        ))}
+        <tr>
+          <th>
+            <h3 className="ui center aligned header">Date</h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">Description</h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">Category</h3>
+          </th>
+          <th>
+            <h3 className="ui center aligned header">Amount</h3>
+          </th>
+        </tr>
+        {/* render a list of <Transaction> components here */}
+        <Transaction item={data}/>
       </tbody>
     </table>
   );
 }
 
-export default TransactionTable;
+export default TransactionsList;
