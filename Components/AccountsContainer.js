@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import TransactionsList from "./TransactionsList";
+import TransactionsList from "./TransactionList.js";
 import Search from "./Search";
-import AddTransactionForm from "./AddTransactionForm";
+import TransactionForm from "./TransactionForm";
 
 function AccountContainer() {
   const [query, setQuery] = useState("");
@@ -9,7 +9,7 @@ function AccountContainer() {
   const [transaction, setTransaction] = useState([]);
 
   useEffect(() => {
-    let url = "http://localhost:8001/transactions"
+    let url = "http://localhost:3000/transactions"
     fetch(url)
       .then((r) => r.json())
       .then((data) => setTransaction(data));
@@ -25,8 +25,8 @@ function AccountContainer() {
   return (
     <div>
       <Search input={setQuery} />
-      <AddTransactionForm />
-      <TransactionsList data={search(transaction)} />
+      <TransactionForm />
+      <TransactionTable data={search(transaction)} />
     </div>
   );
 }
