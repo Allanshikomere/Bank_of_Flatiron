@@ -1,7 +1,7 @@
 // SearchBar.js
 import React from 'react';
 
-const SearchBar = ({ searchTerm, onSearchTermChange }) => {
+function SearchBar({ searchTerm, onSearchTermChange }) {
   return (
     <input
       type="text"
@@ -10,6 +10,6 @@ const SearchBar = ({ searchTerm, onSearchTermChange }) => {
       onChange={onSearchTermChange}
     />
   );
-};
+}
 
 export default SearchBar;

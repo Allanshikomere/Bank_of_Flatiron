@@ -1,7 +1,7 @@
 // TransactionTable.js
 import React from 'react';
 
-const TransactionTable = ({ transactions, searchTerm }) => {
+function TransactionTable({ transactions, searchTerm }) {
   const filteredTransactions = transactions.filter((transaction) =>
     transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -28,6 +28,6 @@ const TransactionTable = ({ transactions, searchTerm }) => {
       </tbody>
     </table>
   );
-};
+}
 
 export default TransactionTable;

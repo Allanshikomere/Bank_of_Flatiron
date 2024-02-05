@@ -1,7 +1,7 @@
 // TransactionForm.js
 import React from 'react';
 
-const TransactionForm = ({ newTransaction, onDescriptionChange, onAmountChange, onAddTransaction }) => {
+function TransactionForm({ newTransaction, onDescriptionChange, onAmountChange, onAddTransaction }) {
   return (
     <form>
       <label>
@@ -17,6 +17,6 @@ const TransactionForm = ({ newTransaction, onDescriptionChange, onAmountChange, 
       </button>
     </form>
   );
-};
+}
 
 export default TransactionForm;
