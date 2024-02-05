@@ -1,15 +1,16 @@
-// SearchBar.js
-import React from 'react';
+import React from "react";
 
-function SearchBar({ searchTerm, onSearchTermChange }) {
+function Search({ input }) {
   return (
-    <input
-      type="text"
-      placeholder="Search transactions"
-      value={searchTerm}
-      onChange={onSearchTermChange}
-    />
+    <div className="ui large fluid icon input">
+      <input
+        type="text"
+        placeholder="Search your Recent Transactions"
+        onChange={(event) => input(event.target.value.toLocaleUpperCase())}
+      />
+      <i className="circular search link icon"></i>
+    </div>
   );
 }
 
-export default SearchBar;
+export default Search;
