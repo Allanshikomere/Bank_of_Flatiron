@@ -1,22 +1,64 @@
-// TransactionForm.js
-import React from 'react';
+import React, { useState } from "react";
 
-function TransactionForm({ newTransaction, onDescriptionChange, onAmountChange, onAddTransaction }) {
+function AddTransactionForm() {
+  const [transactionData, setTransactionData] = useState({
+    data: "",
+    description: "",
+    category: "",
+    amount: "",
+  });
+
+  function handleChange(event) {
+    event.preventDefault();
+    setTransactionData({
+      ...transactionData,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  function handleSubmit() {
+    fetch("http://localhost:8001/transactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transactionData),
+    });
+  }
   return (
-    <form>
-      <label>
-        Description:
-        <input type="text" value={newTransaction.description} onChange={onDescriptionChange} />
-      </label>
-      <label>
-        Amount:
-        <input type="number" value={newTransaction.amount} onChange={onAmountChange} />
-      </label>
-      <button type="button" onClick={onAddTransaction}>
-        Add Transaction
-      </button>
-    </form>
+    <div className="ui segment">
+      <form className="ui form" onSubmit={handleSubmit}>
+        <div className="inline fields">
+          <input type="date" name="date" onChange={handleChange} required />
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="category"
+            placeholder="Category"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="number"
+            name="amount"
+            placeholder="Amount"
+            step="0.01"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button className="ui button" type="submit">
+          Add Transaction
+        </button>
+      </form>
+    </div>
   );
 }
 
-export default TransactionForm;
+export default AddTransactionForm;
