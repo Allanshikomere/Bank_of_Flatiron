@@ -1,16 +1,17 @@
 .ui.segment {
   margin-top: 20px;
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: #d187e1;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2 10px rgba(26, 25, 25, 0.1);
 }
 
 .ui.form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 
 .inline.fields {
@@ -18,6 +19,7 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 10px;
+  border: 2px solid black;
 }
 
 input {
@@ -39,5 +41,12 @@ button.ui.button {
 }
 
 button.ui.button:hover {
-  background-color: #4b137d;
+  background-color: #b892d9;
+}
+ h2 {
+  text-align: center;
+ }
+
+body {
+background-color: #b892d9;
 }
