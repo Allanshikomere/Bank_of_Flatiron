@@ -1,6 +1,7 @@
-// index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TransactionApp from './TransactionApp';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import "semantic-ui-css/semantic.min.css";
+import "./index.css";
 
-ReactDOM.render(<TransactionApp />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
